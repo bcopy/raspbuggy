@@ -23,7 +23,7 @@ environments {
     }
     prod {
         log.info 'Production environment is used'
-        url = 'http://bcopy.github.io/raspbuggy' // the site URL, for instance http://example.com
+        url = 'http://cmcrobotics.github.io/raspbuggy' // the site URL, for instance http://example.com
         show_unpublished = false
         features {
             minify_xml = true
@@ -61,7 +61,7 @@ rsync_ssh_port = '22'
 rsync_document_root = '~/public_html/'
 rsync_deploy_cmd = "rsync -avze 'ssh -p ${rsync_ssh_port}' --delete ${destination_dir} ${rsync_ssh_user}:${rsync_document_root}"
 
-gh_pages_url = 'git@github.com:bcopy/raspbuggy.git' // path to GitHub repository in format git@github.com:{username}/{repo}.git
+gh_pages_url = 'git@github.com:CMCRobotics/raspbuggy.git' // path to GitHub repository in format git@github.com:{username}/{repo}.git
 github_pages_deploy_cmd = new GHPagesDeployer(site).deploy
 
 deploy = github_pages_deploy_cmd
