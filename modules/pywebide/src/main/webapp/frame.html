@@ -31,10 +31,6 @@
   </head>
   <body onload="init()">
     <xml id="toolbox" style="display: none">
-    <category name="Movements">
-      <block type="move"></block>
-      <block type="turn"></block>
-    </category> 
     <category name="Logic">
       <block type="controls_if"></block>
       <block type="logic_compare"></block>
@@ -69,6 +65,24 @@
     </category>
     <category name="Variables" custom="VARIABLE"></category>
     <category name="Functions" custom="PROCEDURE"></category>
-    </xml>
+     <category name="Movements">
+      <block type="mov_move"></block>
+      <block type="mov_turn"></block>
+      <block type="mov_rotate"></block>
+      <block type="mov_stop"></block>
+    </category> 
+    <category name="Vision">
+      <block type="vis_acquire"></block>
+      <block type="vis_shapes"></block>
+      <block type="vis_filter"></block>
+    </category> 
+    <category name="Sensors">
+      <block type="sen_obstacle_distance"></block>
+      <block type="sen_obstacle_presence"></block>
+    </category> 
+    <category name="Time">
+      <block type="time_wait"></block>
+    </category> 
+   </xml>
   </body>
 </html>
