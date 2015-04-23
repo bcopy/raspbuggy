@@ -4,7 +4,7 @@ Blockly.Python['mov_move'] = function(block) {
   var value_duration = Blockly.Python.valueToCode(block, 'duration', Blockly.Python.ORDER_ATOMIC);
   var text_seconds = block.getFieldValue('seconds');
   // TODO: Assemble Python into code variable.
-  var code = '# call the move function\n';
+  var code = 'raspbuggy.move("'+value_direction+'",'+dropdown_direction+','+text_seconds+')\n';
   return code;
 };
 
@@ -12,7 +12,7 @@ Blockly.Python['mov_turn'] = function(block) {
   var dropdown_direction = block.getFieldValue('direction');
   var angle_degrees = block.getFieldValue('degrees');
   // TODO: Assemble JavaScript into code variable.
-  var code = '# call the turn function\n';
+  var code = 'raspbuggy.turn("'+dropdown_direction+'",'+angle_degrees+')\n';
   return code;
 };
 
@@ -21,13 +21,13 @@ Blockly.Python['mov_rotate'] = function(block) {
   var dropdown_direction = block.getFieldValue('direction');
   var dropdown_speed = block.getFieldValue('speed');
   // TODO: Assemble Python into code variable.
-  var code = '# call the rotate function\n';
+  var code = 'raspbuggy.rotate("'+dropdown_wheels+'","'+dropdown_direction+'","'+dropdown_speed+'")\n';
   return code;
 };
 
 Blockly.Python['mov_stop'] = function(block) {
   // TODO: Assemble Python into code variable.
-  var code = '# Call movement stop function\n';
+  var code = 'raspbuggy.stop()\n';
   return code;
 };
 
