@@ -30,50 +30,17 @@ class Drivar(object):
     @abstractmethod
     def initialize(self):
         pass
-    
-## @package drivar
-#  Driver library for Raspbuggy - Lego py-nxt implementation
-'''
-Created on Mar 18, 2015
-
-@author: bcopy
-'''
-
-import nxt.locator
-from nxt.motor import Motor,PORT_A,PORT_C
-from nxt.sensor import Ultrasonic,PORT_4
-
-from drivar.Drivar import Drivar
-import time
-
-class DrivarNxt(object):
-    
-    def __init__(self):
-        self.m_initialized = False
-        self.m_block = None
-        self.m_leftMotor = None
-        self.m_rightMotor = None
-        self.m_ultrasonicSensor = None
-        self.m_moving = False
-
-    def initialize(self):
-        self.m_block = nxt.locator.find_one_brick()
-        self.m_leftMotor = Motor(self.m_block, PORT_A)
-        self.m_rightMotor = Motor(self.m_block, PORT_C)
-        self.m_ultrasonicSensor = Ultrasonic(self.m_block, PORT_4)
-        self.m_initialized = True
-        
 
     @abstractmethod
-    def move(self, direction=Drivar.DIR_FORWARD,durationInMs=1000, callback = None):
+    def move(self, direction = DIR_FORWARD,durationInMs=1000, callback = None):
         pass
     
     @abstractmethod
-    def rotateWheels(self, wheelSet = Drivar.WHEELS_BOTH, direction = Drivar.DIR_FORWARD, speedLevel = Drivar.SPEED_FAST, callback = None):
+    def rotateWheels(self, wheelSet = WHEELS_BOTH, direction = DIR_FORWARD, speedLevel = SPEED_FAST, callback = None):
         pass
     
     @abstractmethod
-    def turn(self, direction = Drivar.DIR_LEFT, angle = 90):
+    def turn(self, direction = DIR_LEFT, angle = 90):
         pass
 
     @abstractmethod

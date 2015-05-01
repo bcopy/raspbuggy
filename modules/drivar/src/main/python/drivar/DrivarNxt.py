@@ -13,7 +13,7 @@ from nxt.sensor import Ultrasonic,PORT_4
 from drivar.Drivar import Drivar
 import time
 
-class DrivarNxt(object):
+class DrivarNxt(Drivar):
     
     def __init__(self):
         self.m_initialized = False
@@ -24,6 +24,7 @@ class DrivarNxt(object):
         self.m_moving = False
 
     def initialize(self):
+        super(DrivarNxt,self).initialize()
         self.m_block = nxt.locator.find_one_brick()
         self.m_leftMotor = Motor(self.m_block, PORT_A)
         self.m_rightMotor = Motor(self.m_block, PORT_C)
