@@ -7,11 +7,11 @@ Created on Mar 18, 2015
 '''
 
 import nxt.locator
-from nxt.motor import *
-from nxt.sensor import *
+from nxt.motor import Motor,PORT_A,PORT_C
+from nxt.sensor import Ultrasonic,PORT_4
+
 from drivar.Drivar import Drivar
-
-
+import time
 
 class DrivarNxt(object):
     
@@ -55,31 +55,45 @@ class DrivarNxt(object):
         if(wheelSet == Drivar.WHEELS_RIGHT or wheelSet == Drivar.WHEELS_BOTH):
             self.m_rightMotor.run(power)
         self.m_moving = True
+        if callback is not None:
+            callback()
         
+    def turn(self, direction = Drivar.DIR_LEFT, angle = 90):
+        left_power = -100
+        right_power = 100
+        if(direction == Drivar.DIR_RIGHT):
+            left_power *= -1 
+            right_power *= -1
+        self.m_leftMotor.turn(left_power, angle)
+        self.m_rightMotor.turn(right_power, angle)
+
+
+    
+    
     def stop(self, callback = None):
         self.m_leftMotor.idle()
         self.m_rightMotor.idle()
         self.m_moving = False
+        if callback is not None:
+            callback()
+        
  
  
     '''
       Return the distance to the nearest obstacle, in centimeters
     '''
     def getDistanceToObstacle(self):
-        return m_ultrasonicSensor.get_sample()
+        return self.m_ultrasonicSensor.get_sample()
  
     '''
       Indicate with a boolean whether there is an obstacle within the given distance
     '''
     def isObstacleWithin(self, distance):
-        dist = m_ultrasonicSensor.get_sample()
+        dist = self.m_ultrasonicSensor.get_sample()
         if(dist <= distance):
             return True
         else:
             return False
-        
-    def wait(self, duration = 1000):
-        time.sleep(duration)
         
     '''
       Return the NXT speed equivalent for the given DRIVAR speed flag
