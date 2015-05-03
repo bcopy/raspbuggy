@@ -210,7 +210,7 @@ commands = [
 layout: post
 title: "${postTitle}"
 date: "${date.format(datetime_format)}"
-author:
+author: bcopy
 categories: []
 comments: true
 published: false
