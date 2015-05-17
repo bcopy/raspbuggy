@@ -27,6 +27,9 @@ class Drivar(object):
     SPEED_MEDIUM = 0x02
     SPEED_FAST = 0x04
     
+    PEN_RAISE = 0x01
+    PEN_LOWER = 0x02
+    
     @abstractmethod
     def initialize(self):
         pass
@@ -64,6 +67,14 @@ class Drivar(object):
     def wait(self, duration = 1000):
         time.sleep(duration)
         
-    
+    '''
+      Orders the pen to be raised or lowered
+    '''
+    @abstractmethod
+    def pen(self, action):
+        pass
 
+    @abstractmethod
+    def getColorMeasurement(self):
+        pass
 
