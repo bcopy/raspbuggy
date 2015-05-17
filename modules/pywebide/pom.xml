@@ -16,6 +16,16 @@
             <artifactId>blockly</artifactId>
             <version>b35c0fbfa2</version>
         </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>1.9.1</version>
+        </dependency>
 </dependencies>
 
   <build>
@@ -39,6 +49,20 @@
                    <type>jar</type>
                    <overWrite>true</overWrite>
                    <includes>META-INF/resources/webjars/blockly/**/*.*</includes>
+                 </artifactItem>
+                 <artifactItem>
+                   <groupId>org.webjars</groupId>
+                   <artifactId>bootstrap</artifactId>
+                   <type>jar</type>
+                   <overWrite>true</overWrite>
+                   <includes>META-INF/resources/webjars/bootstrap/**/*.*</includes>
+                 </artifactItem>
+                 <artifactItem>
+                   <groupId>org.webjars</groupId>
+                   <artifactId>jquery</artifactId>
+                   <type>jar</type>
+                   <overWrite>true</overWrite>
+                   <includes>META-INF/resources/webjars/jquery/**/*.*</includes>
                  </artifactItem>
                </artifactItems>
                <outputDirectory>${project.build.directory}/webjars</outputDirectory>

@@ -1,9 +1,10 @@
 Blockly.Blocks['mov_move'] = {
   init: function() {
-//  this.setHelpUrl('http://www.example.com/');
     this.setColour(20);
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["Move Forward for", "FORWARD"], ["Move Backwards for", "BACKWARDS"]]), "direction")
+        .appendField("Move")
+        .appendField(new Blockly.FieldDropdown([["Forward", "FORWARD"], ["Backwards", "BACKWARDS"]]), "direction")
+        .appendField("for")
         .appendField(new Blockly.FieldTextInput("500"), "duration")
         .appendField("milliseconds");
     this.setPreviousStatement(true);
@@ -14,7 +15,6 @@ Blockly.Blocks['mov_move'] = {
 
 Blockly.Blocks['mov_turn'] = {
   init: function() {
-//    this.setHelpUrl('http://www.example.com/');
     this.setColour(20);
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["Turn left", "LEFT"], ["Turn right", "RIGHT"]]), "direction")
@@ -29,7 +29,6 @@ Blockly.Blocks['mov_turn'] = {
 
 Blockly.Blocks['mov_rotate'] = {
   init: function() {
-//    this.setHelpUrl('http://www.example.com/');
     this.setColour(20);
     this.appendDummyInput()
         .appendField("Rotate")
@@ -45,7 +44,6 @@ Blockly.Blocks['mov_rotate'] = {
 
 Blockly.Blocks['mov_stop'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(20);
     this.appendDummyInput()
         .appendField("Stop the wheels");
@@ -57,7 +55,6 @@ Blockly.Blocks['mov_stop'] = {
 
 Blockly.Blocks['vis_acquire'] = {
   init: function() {
- //   this.setHelpUrl('http://www.example.com/');
     this.setColour(330);
     this.appendDummyInput()
         .appendField("Take a picture of")
@@ -70,7 +67,6 @@ Blockly.Blocks['vis_acquire'] = {
 
 Blockly.Blocks['vis_shapes'] = {
   init: function() {
- //   this.setHelpUrl('http://www.example.com/');
     this.setColour(330);
     this.appendDummyInput()
         .appendField("Does");
@@ -88,7 +84,6 @@ Blockly.Blocks['vis_shapes'] = {
 
 Blockly.Blocks['vis_filter'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(330);
     this.appendDummyInput()
         .appendField("Apply colour filter")
@@ -103,7 +98,6 @@ Blockly.Blocks['vis_filter'] = {
 
 Blockly.Blocks['sen_obstacle_distance'] = {
   init: function() {
-//    this.setHelpUrl('http://www.example.com/');
     this.setColour(120);
     this.appendDummyInput()
         .appendField("Measure distance to the obstacle");
@@ -114,11 +108,10 @@ Blockly.Blocks['sen_obstacle_distance'] = {
 
 Blockly.Blocks['sen_obstacle_presence'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(120);
     this.appendDummyInput()
         .appendField("There is an obstacle")
-        .appendField(new Blockly.FieldDropdown([["ahead", "AHEAD"], ["on the left", "LEFT"], ["on the right", "RIGHT"]]), "direction")
+     //   .appendField(new Blockly.FieldDropdown([["ahead", "AHEAD"], ["on the left", "LEFT"], ["on the right", "RIGHT"]]), "direction")
         .appendField("within")
         .appendField(new Blockly.FieldTextInput("20"), "distanceCm")
         .appendField("centimeters.");
@@ -128,14 +121,45 @@ Blockly.Blocks['sen_obstacle_presence'] = {
   }
 };
 
+Blockly.Blocks['sen_get_color_measurement'] = {
+  init: function() {
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("Get color measurement");
+    this.setOutput(true, "Number");
+    this.setTooltip('');
+  }
+};
+
 Blockly.Blocks['time_wait'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(240);
     this.appendDummyInput()
         .appendField("Wait for")
         .appendField(new Blockly.FieldTextInput("500"), "waitInMs")
         .appendField("milliseconds");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks['pen_lower'] = {
+  init: function() {
+    this.setColour(60);
+    this.appendDummyInput()
+        .appendField("Lower the pen");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks['pen_raise'] = {
+  init: function() {
+    this.setColour(60);
+    this.appendDummyInput()
+        .appendField("Raise the pen");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip('');

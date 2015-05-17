@@ -4,6 +4,8 @@
     <title>Raspbuggy</title>
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="favicon.png"/>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
+    <script src="js/raspbuggy.service.js"></script>
   <style>
     html, body {
       height: 100%;
@@ -14,38 +16,96 @@
       margin-top: 0;
       margin-bottom: 0;
     }
-    h1 {
-      font-weight: normal;
-      font-size: 140%;
-    }
-    iframe {
-      width: 100%;
-      height: 60%;
-      border-style: solid;
-      border-color: #ddd;
-      border-width: 0 1px 1px 0;
+    .raspbuggy-hidden{
+        visibility:hidden;
     }
   </style>
-<script>
-  function blocklyLoaded(blockly) {
-    // Called once Blockly is fully loaded.
-    window.Blockly = blockly;
-  }
-  
-  function showCode(){
-    window.Blockly.Python.INFINITE_LOOP_TRAP = null;
-    var code = window.Blockly.Python.workspaceToCode();
-    alert(code);
-  }
-</script>
  </head>
   <body style="background: black;">
-  <div ><img src="rb-banner.png"></div>
-  <div style="margin: 15px">
-  <button onClick="showCode()">Generate</button>
-  <button>Run</button>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <img style="padding-top:8px" src="rb-banner.png">
+        </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="raspbuggy-console-switch active" onClick="togglePanels()"><a href="#">Program</a></li>
+              <li class="raspbuggy-console-switch" onClick="togglePanels()"><a href="#">Console</a></li>
+              <li class="">&nbsp;</li>
+              <li><a href="#" onClick="showCode()"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Run</a></li>
+              <li><a href="#" onClick="showCode()"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Stop</a></li>
+              <li><a href="#" onClick="showCode()">Current Status : <b><span id="raspbuggy-status-label">Stopped</span></b> <span id="raspbuggy-status-icon" class="glyphicon glyphicon-stop" aria-hidden="true"></span></a></li>
+            </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Files</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  <div id="panel-program" class="raspbuggy-console container-fluid">
+    <div class="row">
+          <div class="col-sm-1 sidebar-toggle collapsed sidebar">Toolbox</div>
+          <div class="col-sm-11 main">
+            <iframe id="blocklyFrame" style="width:100%; height:100%; margin-top:50px" src="frame.html"></iframe>
+          </div>
+      </div>
+      <div id="raspbuggy-console-panel" class="row">
+         <div class="col-sm-12">
+           <span>Console</span>
+         </div>
+      </div>
   </div>
-<iframe src="frame.html"></iframe>
-
+  <!--div id="panel-console" class="raspbuggy-console raspbuggy-hidden container-fluid">
+   <div class="col-sm-1 sidebar-toggle collapsed sidebar">Console</div>
+  </div-->
+  
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+      function blocklyLoaded(blockly) {
+        // Called once Blockly is fully loaded.
+        window.Blockly = blockly;
+      }
+      
+      function showCode(){
+        window.Blockly.Python.INFINITE_LOOP_TRAP = null;
+        var code = window.Blockly.Python.workspaceToCode();
+        alert(code);
+      }
+    </script>
+    
+    <script type="text/javascript">
+    function togglePanels(){
+      $(".raspbuggy-console").toggleClass("raspbuggy-hidden");
+      $(".raspbuggy-console-switch").toggleClass("active");
+    }
+    function windowDimensions() { 
+        var myWidth = 0, myHeight = 0;
+        if( typeof( window.innerWidth ) == 'number' ) {
+            myWidth = window.innerWidth;
+            myHeight = window.innerHeight;
+        }
+        if (myWidth < 1) myWidth = screen.width; // emergency fallback to prevent division by zero
+        if (myHeight < 1) myHeight = screen.height; 
+        return [myWidth,myHeight];
+    }
+    
+    $(document).ready(function(){
+      var dim = windowDimensions();
+      myIframe = $('#blocklyFrame'); // changed the code to use jQuery
+      myIframe.height((dim[1]-80) + "px");
+   
+     // $( "#raspbuggy-console-panel" ).resizable();
+      raspbuggy.start();
+    });
+    </script>    
 </body>
 </html>

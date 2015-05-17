@@ -140,8 +140,10 @@ class RaspbuggyService(object):
 if __name__ == '__main__':
     WEBAPP_ROOT = os.getenv('RASPBUGGY_WEBAPP_ROOT',os.getcwd()+"/src/main/webapp")
     BLOCKLY_ROOT = os.getenv('BLOCKLY_ROOT',os.getcwd()+"/target/webjars/META-INF/resources/webjars/blockly/b35c0fbfa2")
-    print os.path.abspath(WEBAPP_ROOT)
-    print os.path.abspath(BLOCKLY_ROOT)
+    BOOTSTRAP_ROOT = os.getenv('BOOTSTRAP_ROOT',os.getcwd()+"/target/webjars/META-INF/resources/webjars/bootstrap/3.3.4")
+    JQUERY_ROOT = os.getenv('JQUERY_ROOT',os.getcwd()+"/target/webjars/META-INF/resources/webjars/jquery/1.9.1")
+    #print os.path.abspath(WEBAPP_ROOT)
+    #print os.path.abspath(BLOCKLY_ROOT)
     cherrypy.quickstart(RaspbuggyService(), "/", 
         {
               '/':
@@ -153,5 +155,15 @@ if __name__ == '__main__':
               {
                'tools.staticdir.on': True,
                'tools.staticdir.dir': os.path.abspath(BLOCKLY_ROOT)
+              },
+              '/bootstrap':
+              {
+               'tools.staticdir.on': True,
+               'tools.staticdir.dir': os.path.abspath(BOOTSTRAP_ROOT)
+              },
+              '/jquery':
+              {
+               'tools.staticdir.on': True,
+               'tools.staticdir.dir': os.path.abspath(JQUERY_ROOT)
               }                           
         })
