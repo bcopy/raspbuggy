@@ -110,9 +110,8 @@ Blockly.Blocks['sen_obstacle_presence'] = {
   init: function() {
     this.setColour(120);
     this.appendDummyInput()
-        .appendField("There is an obstacle")
+        .appendField("There is an obstacle within")
      //   .appendField(new Blockly.FieldDropdown([["ahead", "AHEAD"], ["on the left", "LEFT"], ["on the right", "RIGHT"]]), "direction")
-        .appendField("within")
         .appendField(new Blockly.FieldTextInput("20"), "distanceCm")
         .appendField("centimeters.");
     this.setInputsInline(true);

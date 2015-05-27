@@ -21,6 +21,20 @@
     }
   </style>
  </head>
+ 
+ <!--
+    TO DO : 
+    * (!) Complete the script execution support
+    * (!) Implement ABORT script support
+    * (!) Add a PYTHON SCRIPT tab to preview the generated code
+    * (!) Implement retrieving the contents of the STDOUT queue for display asynchronously (with a timer, during script execution)
+    * (>) Disable the RUN button while the code is running
+    * (>) Implement support for local storage persistence of the Blockly code
+    * (+) Implement a timer to count the number of seconds of execution
+    * (+) Implement support for script file manager (with service-based storage - save, save as, delete, rename)
+    * (?!) Blockly : investigate disconnected mode (mp3 sounds, images like inverted quotes... are unavailable offline)
+  -->
+ 
   <body style="background: black;">
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -35,12 +49,12 @@
         </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="raspbuggy-console-switch active" onClick="togglePanels()"><a href="#">Program</a></li>
-              <li class="raspbuggy-console-switch" onClick="togglePanels()"><a href="#">Console</a></li>
+              <!--li class="raspbuggy-console-switch active" onClick="togglePanels()"><a href="#">Program</a></li>
+              <li class="raspbuggy-console-switch" onClick="togglePanels()"><a href="#">Console</a></li-->
               <li class="">&nbsp;</li>
-              <li><a href="#" onClick="showCode()"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Run</a></li>
+              <li><a href="#" onClick="runCode()"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Run</a></li>
               <li><a href="#" onClick="showCode()"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Stop</a></li>
-              <li><a href="#" onClick="showCode()">Current Status : <b><span id="raspbuggy-status-label">Stopped</span></b> <span id="raspbuggy-status-icon" class="glyphicon glyphicon-stop" aria-hidden="true"></span></a></li>
+              <li><a href="#">Current Status : <b><span id="raspbuggy-status-label">Stopped</span></b> <span id="raspbuggy-status-icon" class="glyphicon glyphicon-stop" aria-hidden="true"></span></a></li>
             </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Files</a></li>
@@ -52,35 +66,26 @@
     </nav>
   <div id="panel-program" class="raspbuggy-console container-fluid">
     <div class="row">
-          <div class="col-sm-1 sidebar-toggle collapsed sidebar">Toolbox</div>
-          <div class="col-sm-11 main">
-            <iframe id="blocklyFrame" style="width:100%; height:100%; margin-top:50px" src="frame.html"></iframe>
-          </div>
+          <div class="col-sm-12" style="margin-top:40px">&nbsp;</div>
       </div>
-      <div id="raspbuggy-console-panel" class="row">
-         <div class="col-sm-12">
-           <span>Console</span>
+    <div class="row">
+          <div class="col-sm-12 col-lg-8 main">
+            <iframe id="blocklyFrame" style="width:100%; height:100%;" src="frame.html"></iframe>
+          </div>
+          <div class="col-sm-12 col-lg-4">
+           <div><span>Console</span></div>
          </div>
       </div>
   </div>
-  <!--div id="panel-console" class="raspbuggy-console raspbuggy-hidden container-fluid">
-   <div class="col-sm-1 sidebar-toggle collapsed sidebar">Console</div>
-  </div-->
   
-    <script src="/jquery/jquery.min.js"></script>
+  <script src="/jquery/jquery.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script>
       function blocklyLoaded(blockly) {
         // Called once Blockly is fully loaded.
         window.Blockly = blockly;
       }
-      
-      function showCode(){
-        window.Blockly.Python.INFINITE_LOOP_TRAP = null;
-        var code = window.Blockly.Python.workspaceToCode();
-        alert(code);
-      }
-    </script>
+      </script>
     
     <script type="text/javascript">
     function togglePanels(){
@@ -100,12 +105,44 @@
     
     $(document).ready(function(){
       var dim = windowDimensions();
-      myIframe = $('#blocklyFrame'); // changed the code to use jQuery
+      myIframe = $('#blocklyFrame');
       myIframe.height((dim[1]-80) + "px");
+      
+      // Register Raspbuggy execution status listener
+      raspbuggy.addStatusUpdateCallback(function(statusUpdate){
+        $("#raspbuggy-status-icon").removeClass("glyphicon-stop");
+        $("#raspbuggy-status-icon").removeClass("glyphicon-play");
+        $("#raspbuggy-status-icon").removeClass("glyphicon-question-sign");
+        if(statusUpdate.running==-3){
+          // Status is unknown, it could not be queried from the raspbuggy service
+          $("#raspbuggy-status-label").text("Unknown");
+          $("#raspbuggy-status-icon").addClass("glyphicon-question-sign");
+        }else if(statusUpdate.running){
+          $("#raspbuggy-status-label").text("Running");
+          $("#raspbuggy-status-icon").addClass("glyphicon-play");
+        }else if(!statusUpdate.running){
+          $("#raspbuggy-status-label").text("Stopped");
+          $("#raspbuggy-status-icon").addClass("glyphicon-stop");
+        }
+      });
    
      // $( "#raspbuggy-console-panel" ).resizable();
       raspbuggy.start();
+      
+      window.showCode = function(){
+        window.Blockly.Python.INFINITE_LOOP_TRAP = null;
+        var code = window.Blockly.Python.workspaceToCode();
+        alert(code);
+      };
+      
+      window.runCode = function(){
+        window.Blockly.Python.INFINITE_LOOP_TRAP = null;
+        var code = window.Blockly.Python.workspaceToCode();
+        raspbuggy.executeScript(code);
+      }
     });
+    
+
     </script>    
 </body>
 </html>
