@@ -142,6 +142,9 @@
       }
     });
     
+    window.onbeforeunload = function(e) {
+        return 'All the progress done so far may be lost!';
+    };
 
     </script>    
 </body>
