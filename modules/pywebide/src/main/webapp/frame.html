@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="/blockly/blockly_compressed.js"></script>
+    <script src="/blockly/blocks_compressed.js"></script>
+    <script src="/blockly/python_compressed.js"></script>
+    <script src="js/blockly_msg_en.js"></script>
+    <script src="js/raspbuggy.blocks.js"></script>
+    <script src="js/raspbuggy.generators.js"></script>
+    <style>
+      html, body {
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+      }
+      .blocklySvg {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    <script>
+      function init() {
+        Blockly.inject(document.body, {toolbox: document.getElementById('toolbox')});
+        // Let the top-level application know that Blockly is ready.
+        window.parent.blocklyLoaded(Blockly);
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    <xml id="toolbox" style="display: none">
+    <category name="Logic">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+    </category>
+    <category name="Loops">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_whileUntil"></block>
+    </category>
+    <category name="Math">
+      <block type="math_number"></block>
+      <block type="math_arithmetic"></block>
+      <block type="math_single"></block>
+    </category>
+    <category name="Text">
+      <block type="text"></block>
+      <block type="text_length"></block>
+      <block type="text_print"></block>
+    </category>
+    <category name="Variables" custom="VARIABLE"></category>
+    <category name="Functions" custom="PROCEDURE"></category>
+    <category name="Lists">
+      <block type="lists_create_empty"></block>
+      <block type="lists_create_with"></block>
+      <block type="lists_repeat">
+        <value name="NUM">
+          <block type="math_number">
+            <field name="NUM">5</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_length"></block>
+      <block type="lists_isEmpty"></block>
+      <block type="lists_indexOf"></block>
+      <block type="lists_getIndex"></block>
+      <block type="lists_setIndex"></block>
+    </category>
+    <sep></sep>
+    <category name="Movements">
+      <block type="mov_move"></block>
+      <block type="mov_turn"></block>
+      <block type="mov_rotate"></block>
+      <block type="mov_stop"></block>
+      <block type="pen_raise"></block>
+      <block type="pen_lower"></block>
+    </category> 
+    <!--category name="Vision">
+      <block type="vis_acquire"></block>
+      <block type="vis_shapes"></block>
+      <block type="vis_filter"></block>
+    </category--> 
+    <category name="Sensors">
+      <block type="sen_obstacle_distance"></block>
+      <block type="sen_obstacle_presence"></block>
+      <block type="sen_get_color_measurement"></block>
+    </category> 
+    <category name="Time">
+      <block type="time_wait"></block>
+    </category> 
+   </xml>
+  </body>
+</html>
